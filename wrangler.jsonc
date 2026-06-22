@@ -1,8 +1,12 @@
 {
   "name": "mav",
+  "account_id": "3b59b1bb80e3c38ddeae9e252126b2b0",
   "compatibility_date": "2026-01-28",
   "compatibility_flags": ["nodejs_compat"],
   "main": "src/server.ts",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "mav.bod.care", "custom_domain": true }],
   "ai": { "binding": "AI" },
   "assets": {
     "not_found_handling": "single-page-application",
