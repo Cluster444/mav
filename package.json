@@ -1,0 +1,59 @@
+{
+  "name": "mav",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/Cluster444/mav#readme",
+  "bugs": {
+    "url": "https://github.com/Cluster444/mav/issues"
+  },
+  "license": "ISC",
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cluster444/mav.git"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vp dev",
+    "check": "vp check",
+    "build": "vp build",
+    "preview": "vp preview",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@cloudflare/ai-chat": "^0.8.6",
+    "@cloudflare/shell": "^0.4.0",
+    "@cloudflare/think": "^0.10.0",
+    "agents": "^0.16.2",
+    "ai": "^6.0.208",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "workers-ai-provider": "^3.2.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.42.1",
+    "@cloudflare/workers-types": "^4.20260621.1",
+    "@tailwindcss/vite": "^4.3.1",
+    "@types/node": "^26.0.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "tailwindcss": "^4.3.1",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16",
+    "vite-plus": "^0.2.1",
+    "wrangler": "^4.103.0"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.8.0",
+      "onFail": "download"
+    }
+  }
+}

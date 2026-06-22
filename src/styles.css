@@ -1,0 +1,135 @@
+:root {
+  color: #17201a;
+  background: #eef4df;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.shell {
+  align-items: center;
+  display: flex;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.panel {
+  background: #fffdf5;
+  border: 1px solid #c9d6b1;
+  border-radius: 28px;
+  box-shadow: 0 24px 70px rgb(29 43 27 / 18%);
+  margin: 0 auto;
+  max-width: 860px;
+  padding: clamp(24px, 5vw, 48px);
+  width: 100%;
+}
+
+.eyebrow,
+.status {
+  color: #5c6d4d;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(3rem, 12vw, 7rem);
+  letter-spacing: -0.08em;
+  line-height: 0.86;
+  margin: 0;
+}
+
+.intro {
+  color: #46563b;
+  font-size: 1.1rem;
+  max-width: 620px;
+}
+
+.messages {
+  border-block: 1px solid #dbe4c8;
+  display: grid;
+  gap: 14px;
+  margin: 32px 0 20px;
+  max-height: 52vh;
+  overflow: auto;
+  padding: 20px 0;
+}
+
+.empty {
+  color: #697a5a;
+  margin: 0;
+}
+
+.message {
+  border-radius: 18px;
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+}
+
+.message.user {
+  background: #dfecc9;
+}
+
+.message.assistant {
+  background: #f6efd8;
+}
+
+.message strong {
+  color: #607048;
+  text-transform: capitalize;
+}
+
+.composer {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr auto;
+}
+
+.composer input {
+  border: 1px solid #bdcaa7;
+  border-radius: 999px;
+  padding: 14px 18px;
+}
+
+.composer button {
+  background: #1e2f1c;
+  border: 0;
+  border-radius: 999px;
+  color: #fffdf5;
+  cursor: pointer;
+  padding: 14px 22px;
+}
+
+@media (max-width: 620px) {
+  .shell {
+    align-items: stretch;
+    padding: 12px;
+  }
+
+  .panel {
+    border-radius: 20px;
+  }
+
+  .composer {
+    grid-template-columns: 1fr;
+  }
+}
