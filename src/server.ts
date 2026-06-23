@@ -7,6 +7,7 @@ interface Env {
   AI: Ai;
   MavAgent: DurableObjectNamespace;
   ASSETS: Fetcher;
+  ADMIN_USERNAME?: string;
   ADMIN_PASSWORD?: string;
 }
 
@@ -289,7 +290,11 @@ async function handleLogin(request: Request, env: Env): Promise<Response> {
   if (!configuredPassword) return json({ error: "ADMIN_PASSWORD is not configured" }, 503);
 
   const body = await request.formData();
+  const configuredUsername = env.ADMIN_USERNAME?.trim();
+  const username = String(body.get("username") || "").trim();
   const password = String(body.get("password") || "").trim();
+  if (configuredUsername && username !== configuredUsername)
+    return loginPage("Invalid username", 401);
   if (password !== configuredPassword) return loginPage("Invalid password", 401);
 
   const expires = Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS;
@@ -345,7 +350,7 @@ function clearSessionCookie(): string {
 
 function loginPage(error?: string, status = 200): Response {
   return new Response(
-    `<!doctype html><html><head><title>Mav Admin</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#eef4df;color:#17201a;font-family:Inter,ui-sans-serif,system-ui,sans-serif}.card{background:#fffdf5;border:1px solid #c9d6b1;border-radius:28px;box-shadow:0 24px 70px rgb(29 43 27 / 18%);padding:36px;width:min(420px,calc(100vw - 32px))}h1{font-size:3.5rem;letter-spacing:-.08em;line-height:.9;margin:0 0 12px}p{color:#5c6d4d}label{display:block;color:#405236;font-size:.84rem;font-weight:700;margin:14px 0 6px}input,button{box-sizing:border-box;font:inherit;width:100%;border-radius:999px;padding:14px 16px}input{border:1px solid #bdcaa7;background:white}button{border:0;background:#1e2f1c;color:#fffdf5;cursor:pointer;margin-top:16px}.error{color:#8a2d20}</style></head><body><main class="card"><h1>Mav</h1><p>Admin access is required.</p>${error ? `<p class="error">${escapeHtml(error)}</p>` : ""}<form method="post" action="/api/login" autocomplete="on"><label for="username">Username</label><input id="username" name="username" type="text" value="gandalf" autocomplete="username" autocapitalize="none" spellcheck="false" required><label for="password">Password</label><input id="password" name="password" type="password" placeholder="Admin password" autocomplete="current-password" autofocus required><button type="submit">Unlock</button></form></main></body></html>`,
+    `<!doctype html><html><head><title>Mav Admin</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#eef4df;color:#17201a;font-family:Inter,ui-sans-serif,system-ui,sans-serif}.card{background:#fffdf5;border:1px solid #c9d6b1;border-radius:28px;box-shadow:0 24px 70px rgb(29 43 27 / 18%);padding:36px;width:min(420px,calc(100vw - 32px))}h1{font-size:3.5rem;letter-spacing:-.08em;line-height:.9;margin:0 0 12px}p{color:#5c6d4d}label{display:block;color:#405236;font-size:.84rem;font-weight:700;margin:14px 0 6px}input,button{box-sizing:border-box;font:inherit;width:100%;border-radius:999px;padding:14px 16px}input{border:1px solid #bdcaa7;background:white}button{border:0;background:#1e2f1c;color:#fffdf5;cursor:pointer;margin-top:16px}.error{color:#8a2d20}</style></head><body><main class="card"><h1>Mav</h1><p>Admin access is required.</p>${error ? `<p class="error">${escapeHtml(error)}</p>` : ""}<form method="post" action="/api/login" autocomplete="on"><label for="username">Username</label><input id="username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required><label for="password">Password</label><input id="password" name="password" type="password" placeholder="Admin password" autocomplete="current-password" autofocus required><button type="submit">Unlock</button></form></main></body></html>`,
     { status, headers: { "Content-Type": "text/html; charset=utf-8" } },
   );
 }
